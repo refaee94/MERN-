@@ -11,7 +11,7 @@ import { MatButtonModule} from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { HttpClientModule } from "@angular/common/http";
 import { PostListComponent } from './posts/post-list/post-list.component';
 
 
@@ -27,7 +27,7 @@ MatInputModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule,MatToolbarModule
+    BrowserAnimationsModule,MatToolbarModule,HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

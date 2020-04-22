@@ -1,4 +1,5 @@
 mat-card{
+  border: groove;
 display: block;
 width: 40%;
 left: 0px;
@@ -13,3 +14,13 @@ height: auto;
 
 
 }
+h3{
+  margin-top:5px;
+font-family: fantasy;
+  font-size: large;
+  background: rgb(50,42,190);
+  background: linear-gradient(286deg, rgba(50,42,190,1) 0%, rgba(9,9,121,1) 48%, rgba(0,212,255,1) 100%);
+  border-radius: 22px;
+  width: 41%;
+
+  }

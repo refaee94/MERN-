@@ -23,7 +23,7 @@ constructor(public postService:PostsService) {
       return;
     }
 const post:post=
-{title:form.value.title,
+{id:null,title:form.value.title,
 content:form.value.content};
 this.postService.addPost(form.value.title,form.value.content);
 form.reset();

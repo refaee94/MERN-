@@ -1,12 +1,21 @@
 :host{
   display: block;
-width: 40%;
+width: 50%;
 top: 12%;
 right:11px ;
 position: absolute;
 
+
 }
 
+h3{
+  background: rgb(50,42,190);
+background: linear-gradient(286deg, rgba(50,42,190,1) 0%, rgba(9,9,121,1) 48%, rgba(0,212,255,1) 100%);
+  font-family: fantasy;
+
+font-size: large;
+border-radius: 22px;
+}
 
 .p
 {width: 44px;}

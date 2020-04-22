@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { post } from '../postModel';
 import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
@@ -9,24 +9,31 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit {
- public posts:post[]=[];
+  public posts: post[] = [];
 
-  constructor(public postService:PostsService) {
+  constructor(public postService: PostsService) {
 
 
   }
 
-  private postSub:Subscription;
+  private postSub: Subscription;
 
-  ngOnInit(): void {    this.posts=this.postService.getPosts();
-    this.postService.getPostsUpdatedListner().subscribe((postslist)=>{
+  ngOnInit(): void {
+    this.postService.getPosts();
+    this.postService.getPostsUpdatedListner().subscribe((postslist) => {
 
-      this.posts=postslist;
+      this.posts = postslist;
     });
 
   }
-ngOnDestroy(): void {
-this.postSub.unsubscribe();
+  ngOnDestroy(): void {
+    this.postSub.unsubscribe();
 
-}
+  }
+
+  onDelete(id:string){
+this.postService.deletePost(id);
+
+
+  }
 }
