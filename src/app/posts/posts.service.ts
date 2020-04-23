@@ -4,6 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { map } from "rxjs/operators";
+import { Router } from '@angular/router';
 /**
  * @description
  * @class
@@ -12,13 +13,21 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class PostsService {
+
   private posts: post[] = [];
   postsUpdated = new Subject<post[]>();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
 
   getPostsUpdatedListner() {
     return this.postsUpdated.asObservable();
   }
+
+getPost(id:string){
+
+return this.http.get<{_id:string,title:string,content:string,imagePath:string}>("http://localhost:3000/api/posts/"+id);
+
+
+}
   getPosts() {
     this.http
       .get<{ message: string; posts: any }>(
@@ -30,6 +39,7 @@ export class PostsService {
             title: post.title,
             content: post.content,
             id: post._id
+            ,imagePath:post.imagePath
           };
 
         });
@@ -40,20 +50,51 @@ export class PostsService {
       });
   }
 
-  addPost(title: string, content: string) {
-    const post: post = { id: null, title: title, content: content };
+  addPost(title: string, content: string,image:File) {
+    const postData=new FormData();
+    postData.append('title',title);
+    postData.append('content',content);
+    postData.append('image',image,title);
+
     this.http.
-      post<{ message: string,postId:string }>(
-        "http://localhost:3000/api/posts", post
-      ).subscribe((response) => {
-post.id=response.postId;
+      post<{ message: string,post:post }>(
+        "http://localhost:3000/api/posts", postData
+      ).subscribe(response => {
+        console.log(response.post)
+            const post: post = { id: response.post.id
+              , title: title, content: content,imagePath:response.post.imagePath };
+
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
+        this.router.navigate(['/'])
 
       })
 
   }
 
+
+  updatePost(id:string,title: string, content: string,image:any) {
+    let postData:any;
+    if(typeof(image)==='object'){
+       postData=new FormData();
+       postData.append('id',id);
+      postData.append('title',title);
+      postData.append('content',content);
+      postData.append('image',image,title);
+    }
+    else{     postData= { id: id, title: title, content: content ,imagePath:image};
+}
+    this.http.
+      put<{ message: string,postId:string }>(
+        "http://localhost:3000/api/posts/"+id, postData
+      ).subscribe(response => {
+console.log(response);
+this.router.navigate(['/'])
+
+
+      });
+
+  }
 
   deletePost(postId: string) {
 

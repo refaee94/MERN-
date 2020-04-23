@@ -1,26 +1,45 @@
-mat-card{
+mat-card {
   border: groove;
-display: block;
-width: 40%;
-left: 0px;
-margin: 10px;
-
+  display: block;
+  width: 50%;
+  left: 0px;
+  margin: 10px;
 }
 
-textarea,mat-form-field{
-
-width: 100%;
-height: auto;
-
-
+textarea,
+mat-form-field {
+  width: 100%;
+  height: 100px;
 }
-h3{
-  margin-top:5px;
-font-family: fantasy;
+.content {
+  margin-bottom: 50px;
+}
+h3 {
+  width: 1222px;
+  text-align: center;
+  color: lemonchiffon;
+  margin-top: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: large;
-  background: rgb(50,42,190);
-  background: linear-gradient(286deg, rgba(50,42,190,1) 0%, rgba(9,9,121,1) 48%, rgba(0,212,255,1) 100%);
+  background: rgb(50, 42, 190);
+  background: linear-gradient(
+    286deg,
+    rgba(50, 42, 190, 1) 0%,
+    rgba(9, 9, 121, 1) 48%,
+    rgba(0, 212, 255, 1) 100%
+  );
   border-radius: 22px;
-  width: 41%;
+}
 
-  }
+mat-spinner {
+  margin: auto;
+}
+.filePicker {
+  visibility: hidden;
+}
+
+.imgPrev {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 50px;
+}
