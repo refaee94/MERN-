@@ -1,38 +1,33 @@
+import { NgModule } from "@angular/core";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./header/header.component";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { authInterceptor } from "./auth/auth-intersipter";
+import { errorInterceptor } from "./error-interceptor";
+import { ErrorComponent } from "./error/error.component";
+import { AngularMaterialModuleModule } from "./angular-material-module/angular-material-module.module";
+import { PostModuleModule } from './post-module/post-module.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from "@angular/forms";
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from "@angular/material/input";
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { HeaderComponent } from './header/header.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {  RxReactiveFormsModule } from "@rxweb/reactive-form-validators";
-
-import { HttpClientModule } from "@angular/common/http";
-import { PostListComponent } from './posts/post-list/post-list.component';
-
-
 
 @NgModule({
   declarations: [
+    ErrorComponent,
     AppComponent,
-    PostCreateComponent, HeaderComponent, PostListComponent
+    HeaderComponent
   ],
-  imports: [MatCardModule, MatExpansionModule,MatProgressSpinnerModule,
-    MatButtonModule,
-    MatInputModule,
-    BrowserModule,
-    ReactiveFormsModule,
+  imports: [BrowserModule,BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule, MatToolbarModule, HttpClientModule,RxReactiveFormsModule
+    AngularMaterialModuleModule,
+    PostModuleModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: errorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 })
-export class AppModule { }
+export class AppModule {}
