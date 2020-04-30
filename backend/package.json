@@ -1,4 +1,4 @@
-{
+{"engines": {"node":"12"},"scripts": {"start": "node server.js"},
   "name": "my-app",
   "version": "0.0.0",
   "private": true,
